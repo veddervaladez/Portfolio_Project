@@ -3,7 +3,7 @@ What skills are required for the top paying data analyst jobs?
 
 */
 
-WITH top_paying_jobs AS (
+WITH top_paying_jobs AS (             -- CTE to get top 10 paying Data Analyst jobs
     SELECT
         job_id,
         job_title,
@@ -11,9 +11,9 @@ WITH top_paying_jobs AS (
         name as company_name
     FROM
         job_postings_fact
-    LEFT JOIN company_dim ON job_postings_fact.company_id = company_dim.company_id
+    LEFT JOIN company_dim ON job_postings_fact.company_id = company_dim.company_id    -- Join to get company names
     WHERE
-        job_title_short = 'Data Analyst' AND
+        job_title_short = 'Data Analyst' AND          -- Filter for Data Analyst roles, remote locations
         job_location = 'Anywhere' AND
         salary_year_avg IS NOT NULL
     ORDER BY
@@ -27,7 +27,7 @@ SELECT
     skills
 FROM
     top_paying_jobs
-INNER JOIN skills_job_dim ON top_paying_jobs.job_id = skills_job_dim.job_id
+INNER JOIN skills_job_dim ON top_paying_jobs.job_id = skills_job_dim.job_id     -- Join to get skills for these jobs
 INNER JOIN skills_dim ON skills_job_dim.skill_id = skills_dim.skill_id
 ORDER BY 
     salary_year_avg DESC

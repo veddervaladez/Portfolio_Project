@@ -10,7 +10,7 @@ SELECT
     job_title,
     job_location,
     job_schedule_type,
-    salary_year_avg,
+    ROUND(salary_year_avg, 0) AS salary_year_avg,
     job_posted_date,
     name as company_name
 FROM

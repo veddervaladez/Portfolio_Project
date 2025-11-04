@@ -10,8 +10,8 @@ WITH skills_demand AS (
         skills_dim.skills,
         COUNT(skills_job_dim.job_id) AS demand_count
     FROM job_postings_fact
-    INNER JOIN skills_job_dim ON job_postings_fact.job_id = skills_job_dim.job_id
-    INNER JOIN skills_dim ON skills_job_dim.skill_id = skills_dim.skill_id
+    INNER JOIN skills_job_dim ON job_postings_fact.job_id = skills_job_dim.job_id     -- join fact to job-skill bridge
+    INNER JOIN skills_dim ON skills_job_dim.skill_id = skills_dim.skill_id            -- join bridge to skills dimension  
     WHERE
         job_title_short = 'Data Analyst'
         AND salary_year_avg IS NOT NULL
@@ -23,8 +23,8 @@ WITH skills_demand AS (
         skills_job_dim.skill_id,
         ROUND(AVG(salary_year_avg), 0) AS avg_salary
     FROM job_postings_fact
-    INNER JOIN skills_job_dim ON job_postings_fact.job_id = skills_job_dim.job_id
-    INNER JOIN skills_dim ON skills_job_dim.skill_id = skills_dim.skill_id
+    INNER JOIN skills_job_dim ON job_postings_fact.job_id = skills_job_dim.job_id     -- join fact to job-skill bridge 
+    INNER JOIN skills_dim ON skills_job_dim.skill_id = skills_dim.skill_id        -- join bridge to skills dimension
     WHERE
         job_title_short = 'Data Analyst'
         AND salary_year_avg IS NOT NULL
@@ -40,9 +40,9 @@ SELECT
     avg_salary
 FROM
     skills_demand
-INNER JOIN average_salary ON skills_demand.skill_id = average_salary.skill_id
+INNER JOIN average_salary ON skills_demand.skill_id = average_salary.skill_id   -- join demand CTE to average salary CTE
 WHERE
-    demand_count> 10
+    demand_count> 10                         -- filter for skills with more than 10 job postings
 ORDER BY
     demand_count DESC,
     avg_salary DESC
@@ -57,16 +57,16 @@ SELECT
     COUNT(skills_job_dim.job_id) AS demand_count,
     ROUND(AVG(salary_year_avg), 0) AS avg_salary
 FROM job_postings_fact
-INNER JOIN skills_job_dim ON job_postings_fact.job_id = skills_job_dim.job_id
-INNER JOIN skills_dim ON skills_job_dim.skill_id = skills_dim.skill_id
+INNER JOIN skills_job_dim ON job_postings_fact.job_id = skills_job_dim.job_id   -- join fact to job-skill bridge
+INNER JOIN skills_dim ON skills_job_dim.skill_id = skills_dim.skill_id          -- join bridge to skills dimension
 WHERE
     job_title_short = 'Data Analyst'
-    AND salary_year_avg IS NOT NULL
+    AND salary_year_avg IS NOT NULL              -- exclude jobs without salary data
     AND job_work_from_home = True
 GROUP BY
     skills_dim.skill_id
 HAVING
-    COUNT(skills_job_dim.job_id) > 10
+    COUNT(skills_job_dim.job_id) > 10             -- filter for skills with more than 10 job postings
 ORDER BY
     demand_count DESC,
     avg_salary DESC
