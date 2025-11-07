@@ -63,7 +63,7 @@ Here's the breakdown of the top paying data analyst jobs:
 
 - **Outlier detected:** The Mantys “Data Analyst” role at $650K is an extreme outlier and likely skews the average.
 
-![Top Paying Roles](assets\1_top_paying_roles)
+![Top Paying Roles](assets\1_top_paying_roles.png)
 *Bar graph visualizing the top 10 highest salaries for data analyst roles. ChatGPT generated this bar graph from my SQL query results*
 
 ### 2. Skills Required for the Top Paying Data Analyst Jobs
@@ -107,7 +107,7 @@ Here's a summary of the skills needed for the top paying data analyst roles:
 
 - **Core analytics skills remain valuable:** SQL, Python, and Tableau consistently appear across multiple roles and companies, maintaining strong average salaries ($222K–$218K) even outside the top leadership roles
 
-![Top Paying Skills](assets\top_paying_skills_graph)
+![Top Paying Skills](assets\top_paying_skills_graph.png)
 *Bar graph visualizing the skills required for top paying data analyst roles. ChatGPT generated this bar graph from my SQL query results*
 
 
